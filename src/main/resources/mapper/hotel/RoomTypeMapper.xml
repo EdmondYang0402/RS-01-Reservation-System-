@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rs01.hotel.mapper.RoomTypeMapper">
+    <select id="selectById" resultType="com.rs01.hotel.entity.RoomType">SELECT * FROM room_type WHERE id = #{id}</select>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO room_type (hotel_id, name, description, capacity, bed_type, base_price, total_rooms, status)
+        VALUES (#{hotelId}, #{name}, #{description}, #{capacity}, #{bedType}, #{basePrice}, #{totalRooms}, #{status})
+    </insert>
+    <update id="update">
+        UPDATE room_type SET hotel_id=#{hotelId}, name=#{name}, description=#{description}, capacity=#{capacity},
+        bed_type=#{bedType}, base_price=#{basePrice}, total_rooms=#{totalRooms}, status=#{status} WHERE id=#{id}
+    </update>
+    <delete id="deleteById">DELETE FROM room_type WHERE id = #{id}</delete>
+    <select id="listByHotelId" resultType="com.rs01.hotel.entity.RoomType">
+        SELECT * FROM room_type WHERE hotel_id=#{hotelId} ORDER BY id LIMIT #{limit} OFFSET #{offset}
+    </select>
+</mapper>

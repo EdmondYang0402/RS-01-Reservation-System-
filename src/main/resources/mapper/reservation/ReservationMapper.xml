@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rs01.reservation.mapper.ReservationMapper">
+    <select id="selectById" resultType="com.rs01.reservation.entity.Reservation">SELECT * FROM reservation WHERE id=#{id}</select>
+    <select id="selectByReservationNo" resultType="com.rs01.reservation.entity.Reservation">SELECT * FROM reservation WHERE reservation_no=#{reservationNo}</select>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO reservation (reservation_no, user_id, hotel_id, room_type_id, assigned_room_id,
+        check_in_date, check_out_date, guest_name, guest_phone, guest_count, total_amount, status,
+        actual_check_in_time, actual_check_out_time)
+        VALUES (#{reservationNo}, #{userId}, #{hotelId}, #{roomTypeId}, #{assignedRoomId},
+        #{checkInDate}, #{checkOutDate}, #{guestName}, #{guestPhone}, #{guestCount}, #{totalAmount}, #{status},
+        #{actualCheckInTime}, #{actualCheckOutTime})
+    </insert>
+    <select id="list" resultType="com.rs01.reservation.entity.Reservation">
+        SELECT * FROM reservation
+        <where><if test="userId != null">user_id=#{userId}</if></where>
+        ORDER BY create_time DESC LIMIT #{limit} OFFSET #{offset}
+    </select>
+</mapper>

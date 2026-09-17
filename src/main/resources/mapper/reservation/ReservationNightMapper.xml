@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rs01.reservation.mapper.ReservationNightMapper">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO reservation_night (reservation_id, stay_date, price)
+        VALUES (#{reservationId}, #{stayDate}, #{price})
+    </insert>
+    <select id="selectByReservationId" resultType="com.rs01.reservation.entity.ReservationNight">
+        SELECT * FROM reservation_night WHERE reservation_id=#{reservationId} ORDER BY stay_date
+    </select>
+</mapper>
