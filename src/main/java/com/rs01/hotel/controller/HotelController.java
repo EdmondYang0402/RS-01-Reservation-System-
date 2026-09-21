@@ -4,6 +4,7 @@ import com.rs01.common.result.Result;
 import com.rs01.hotel.entity.Hotel;
 import com.rs01.hotel.service.HotelService;
 import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/hotels")
 @RequiredArgsConstructor
+@Tag(name = "Admin Hotels")
 public class HotelController {
     private final HotelService hotelService;
 

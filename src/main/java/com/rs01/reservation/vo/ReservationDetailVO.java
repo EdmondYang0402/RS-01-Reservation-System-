@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 public class ReservationDetailVO {
-    private Long id;
+    private Long reservationId;
     private String reservationNo;
     private String hotelName;
     private String roomTypeName;

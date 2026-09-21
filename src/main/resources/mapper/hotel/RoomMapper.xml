@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rs01.hotel.mapper.RoomMapper">
-    <select id="selectById" resultType="com.rs01.hotel.entity.Room">SELECT * FROM room WHERE id = #{id}</select>
-    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO room (hotel_id, room_type_id, room_number, floor, status)
-        VALUES (#{hotelId}, #{roomTypeId}, #{roomNumber}, #{floor}, #{status})
-    </insert>
+    <sql id="roomColumns">
+        id, hotel_id, room_type_id, room_number, floor, status, create_time, update_time
+    </sql>
+    <select id="selectById" resultType="com.rs01.hotel.entity.Room">
+        SELECT <include refid="roomColumns"/> FROM room WHERE id = #{id}
+    </select>
+    <select id="selectByHotelId" resultType="com.rs01.hotel.entity.Room">
+        SELECT <include refid="roomColumns"/> FROM room WHERE hotel_id = #{hotelId} ORDER BY room_number
+    </select>
+    <select id="selectByRoomTypeId" resultType="com.rs01.hotel.entity.Room">
+        SELECT <include refid="roomColumns"/> FROM room WHERE room_type_id = #{roomTypeId} ORDER BY room_number
+    </select>
+    <select id="selectAvailableByRoomTypeId" resultType="com.rs01.hotel.entity.Room">
+        SELECT <include refid="roomColumns"/> FROM room
+        WHERE room_type_id = #{roomTypeId} AND status = 'AVAILABLE'
+        ORDER BY room_number
+    </select>
     <update id="update">
         UPDATE room SET hotel_id=#{hotelId}, room_type_id=#{roomTypeId}, room_number=#{roomNumber},
         floor=#{floor}, status=#{status} WHERE id=#{id}
     </update>
+    <update id="updateStatus">
+        UPDATE room SET status = #{status} WHERE id = #{id}
+    </update>
     <delete id="deleteById">DELETE FROM room WHERE id = #{id}</delete>
     <select id="listByHotelId" resultType="com.rs01.hotel.entity.Room">
-        SELECT * FROM room WHERE hotel_id=#{hotelId} ORDER BY room_number LIMIT #{limit} OFFSET #{offset}
+        SELECT <include refid="roomColumns"/>
+        FROM room WHERE hotel_id=#{hotelId} ORDER BY room_number LIMIT #{limit} OFFSET #{offset}
     </select>
 </mapper>

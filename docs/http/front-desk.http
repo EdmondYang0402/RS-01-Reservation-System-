@@ -1,0 +1,19 @@
+@baseUrl = http://localhost:8080
+@token = paste-jwt-here
+
+### Today's arrivals
+GET {{baseUrl}}/front-desk/arrivals
+Authorization: Bearer {{token}}
+
+### Today's departures
+GET {{baseUrl}}/front-desk/departures
+Authorization: Bearer {{token}}
+
+### Submit check-in request
+POST {{baseUrl}}/front-desk/reservations/1/check-in
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "roomId": 101
+}

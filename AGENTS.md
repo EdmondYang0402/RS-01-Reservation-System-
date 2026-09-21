@@ -136,3 +136,25 @@ Frontend style:
 - keep components simple
 - API calls through unified request layer
 - do not invent backend business rules
+
+Authentication rules:
+
+- Authentication uses Spring Security + JWT.
+- Current user comes from `SecurityContextHolder`.
+- Do not trust `userId` or `role` from request bodies.
+- Passwords must use BCrypt.
+- Core reservation business logic remains developer-owned.
+- API controllers must not contain business logic.
+
+Codex automation rule:
+
+- Codex handles boilerplate, UI scaffolding, API wrappers, CRUD and test fixtures.
+- Core business rules, transactions, concurrency, state transitions, authorization boundaries and performance-sensitive SQL are developer-owned.
+
+Frontend i18n:
+
+- Supported locales: zh-CN, ja-JP, en-US
+- Static UI text must use vue-i18n
+- Backend enums remain language-neutral
+- Locale-specific labels are frontend concerns
+- Do not duplicate translations inside components

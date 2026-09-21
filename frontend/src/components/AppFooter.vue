@@ -1,8 +1,13 @@
+<script setup>
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+</script>
+
 <template>
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div><strong>栖月酒店</strong><p>在光与庭院之间，安心住一晚。</p></div>
-      <div class="footer-meta"><span>入住 15:00 · 退房 11:00</span><span>© 2026 Tsukimi Stay</span></div>
+      <div><strong>{{ t('brand.name') }}</strong><p>{{ t('brand.tagline') }}</p></div>
+      <div class="footer-meta"><span>{{ t('brand.hours') }}</span><span>© 2026 Tsukimi Stay</span></div>
     </div>
   </footer>
 </template>

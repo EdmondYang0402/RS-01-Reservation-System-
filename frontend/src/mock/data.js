@@ -9,9 +9,9 @@ export const roomTypes = [
 ]
 
 export const reservations = [
-  { id: 1, reservationNo: 'RS202609120018', roomType: '樱庭大床房', checkIn: '2026-09-20', checkOut: '2026-09-22', totalAmount: 1360, status: 'CONFIRMED' },
-  { id: 2, reservationNo: 'RS202608270006', roomType: '月见双床房', checkIn: '2026-08-29', checkOut: '2026-08-30', totalAmount: 760, status: 'COMPLETED' },
-  { id: 3, reservationNo: 'RS202607050012', roomType: '樱庭大床房', checkIn: '2026-07-12', checkOut: '2026-07-14', totalAmount: 1360, status: 'CANCELLED' },
+  { reservationId: 1, reservationNo: 'RS202609120018', guestName: '林夏', roomTypeName: '樱庭大床房', checkInDate: '2026-09-20', checkOutDate: '2026-09-22', totalAmount: 1360, status: 'CONFIRMED' },
+  { reservationId: 2, reservationNo: 'RS202608270006', guestName: '陈屿', roomTypeName: '月见双床房', checkInDate: '2026-08-29', checkOutDate: '2026-08-30', totalAmount: 760, status: 'COMPLETED' },
+  { reservationId: 3, reservationNo: 'RS202607050012', guestName: '周葵', roomTypeName: '樱庭大床房', checkInDate: '2026-07-12', checkOutDate: '2026-07-14', totalAmount: 1360, status: 'CANCELLED' },
 ]
 
 export const staffRooms = [
@@ -20,3 +20,23 @@ export const staffRooms = [
   { roomNumber: '401', roomType: '月见双床房', status: 'OCCUPIED' }, { roomNumber: '402', roomType: '月见双床房', status: 'AVAILABLE' },
   { roomNumber: '501', roomType: '和光庭院套房', status: 'AVAILABLE' }, { roomNumber: '502', roomType: '和光庭院套房', status: 'OCCUPIED' },
 ]
+
+export const adminRoomTypes = roomTypes.map((room) => ({
+  id: room.id, hotelId: 1, name: room.name, description: room.description,
+  capacity: room.capacity, bedType: room.bedType, basePrice: room.price,
+  totalRooms: room.remaining + 4, status: 1,
+}))
+
+export const adminRooms = staffRooms.map((room, index) => ({
+  id: index + 1, hotelId: 1, roomTypeId: index < 4 ? 1 : index < 6 ? 2 : 3,
+  roomNumber: room.roomNumber, floor: Number(room.roomNumber[0]), status: room.status,
+}))
+
+export const dailyInventory = [
+  { id: 1, roomTypeId: 1, stayDate: '2026-09-20', totalInventory: 9, reservedCount: 4, outOfServiceCount: 0 },
+  { id: 2, roomTypeId: 1, stayDate: '2026-09-21', totalInventory: 9, reservedCount: 5, outOfServiceCount: 1 },
+  { id: 3, roomTypeId: 1, stayDate: '2026-09-22', totalInventory: 9, reservedCount: 3, outOfServiceCount: 0 },
+]
+
+export const arrivals = reservations.slice(0, 2)
+export const departures = reservations.slice(1)

@@ -1,14 +1,14 @@
 USE rs01;
 
 INSERT INTO hotel (id, name, address, phone, check_in_time, check_out_time, status)
-VALUES (1, 'RS-01 Hotel', '1 Example Road', '000-0000-0000', '14:00:00', '12:00:00', 1)
+VALUES (1, 'Sakura Inn', '1 Sakura Road', '000-0000-0000', '14:00:00', '12:00:00', 1)
 ON DUPLICATE KEY UPDATE name = VALUES(name);
 
 INSERT INTO room_type
     (id, hotel_id, name, description, capacity, bed_type, base_price, total_rooms, status)
 VALUES
-    (1, 1, 'Single Room', 'Development seed room type', 1, 'SINGLE', 299.00, 3, 1),
-    (2, 1, 'Twin Room', 'Development seed room type', 2, 'TWIN', 399.00, 3, 1)
+    (1, 1, 'Single Room', 'Single room at Sakura Inn', 1, 'SINGLE', 299.00, 3, 1),
+    (2, 1, 'Twin Room', 'Twin room at Sakura Inn', 2, 'TWIN', 399.00, 3, 1)
 ON DUPLICATE KEY UPDATE name = VALUES(name);
 
 INSERT INTO room (id, hotel_id, room_type_id, room_number, floor, status)
@@ -29,6 +29,8 @@ FROM (
 ) room_types
 CROSS JOIN (
     SELECT 0 AS day_offset UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3
-    UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6
+    UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7
+    UNION ALL SELECT 8 UNION ALL SELECT 9 UNION ALL SELECT 10 UNION ALL SELECT 11
+    UNION ALL SELECT 12 UNION ALL SELECT 13
 ) days
 ON DUPLICATE KEY UPDATE total_inventory = VALUES(total_inventory);

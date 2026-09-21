@@ -6,20 +6,20 @@ USE rs01;
 
 CREATE TABLE IF NOT EXISTS `user` (
     id BIGINT NOT NULL AUTO_INCREMENT,
-    username VARCHAR(64) NOT NULL,
+    username VARCHAR(50) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(255) NULL,
-    phone VARCHAR(32) NULL,
-    role VARCHAR(32) NOT NULL,
+    name VARCHAR(100) NULL,
+    email VARCHAR(100) NULL,
+    phone VARCHAR(30) NULL,
+    role VARCHAR(30) NOT NULL,
     status TINYINT NOT NULL DEFAULT 1,
     create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
     UNIQUE KEY uk_user_username (username),
-    UNIQUE KEY uk_user_email (email),
     KEY idx_user_phone (phone),
-    KEY idx_user_role_status (role, status)
+    KEY idx_user_role_status (role, status),
+    CONSTRAINT chk_user_role CHECK (role IN ('CUSTOMER', 'FRONT_DESK', 'ADMIN'))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE IF NOT EXISTS hotel (
@@ -95,10 +95,10 @@ CREATE TABLE IF NOT EXISTS reservation (
     check_in_date DATE NOT NULL,
     check_out_date DATE NOT NULL,
     guest_name VARCHAR(100) NOT NULL,
-    guest_phone VARCHAR(32) NOT NULL,
+    guest_phone VARCHAR(30) NULL,
     guest_count INT NOT NULL,
-    total_amount DECIMAL(12, 2) NOT NULL,
-    status VARCHAR(32) NOT NULL,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(30) NOT NULL,
     actual_check_in_time DATETIME NULL,
     actual_check_out_time DATETIME NULL,
     create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -112,7 +112,10 @@ CREATE TABLE IF NOT EXISTS reservation (
     CONSTRAINT fk_reservation_user FOREIGN KEY (user_id) REFERENCES `user` (id),
     CONSTRAINT fk_reservation_hotel FOREIGN KEY (hotel_id) REFERENCES hotel (id),
     CONSTRAINT fk_reservation_room_type FOREIGN KEY (room_type_id) REFERENCES room_type (id),
-    CONSTRAINT fk_reservation_assigned_room FOREIGN KEY (assigned_room_id) REFERENCES room (id)
+    CONSTRAINT fk_reservation_assigned_room FOREIGN KEY (assigned_room_id) REFERENCES room (id),
+    CONSTRAINT chk_reservation_status CHECK (
+        status IN ('CONFIRMED', 'CHECKED_IN', 'CHECKED_OUT', 'CANCELLED', 'NO_SHOW')
+    )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE IF NOT EXISTS reservation_night (

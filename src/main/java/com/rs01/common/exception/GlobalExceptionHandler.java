@@ -4,6 +4,8 @@ import com.rs01.common.result.Result;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,9 +15,22 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(AuthenticationException.class)
+    public Result<Void> handleAuthenticationException(AuthenticationException exception) {
+        return Result.error(HttpStatus.UNAUTHORIZED.value(), "Invalid username or password");
+    }
+
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(AccessDeniedException.class)
+    public Result<Void> handleAccessDeniedException(AccessDeniedException exception) {
+        return Result.error(HttpStatus.FORBIDDEN.value(), "Forbidden");
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BusinessException.class)
     public Result<Void> handleBusinessException(BusinessException exception) {
-        return Result.error(exception.getCode(), exception.getMessage());
+        return Result.error(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

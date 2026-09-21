@@ -1,0 +1,10 @@
+@baseUrl = http://localhost:8080
+@token = paste-jwt-here
+
+### Current user's reservations
+GET {{baseUrl}}/reservations
+Authorization: Bearer {{token}}
+
+### Reservation detail
+GET {{baseUrl}}/reservations/1
+Authorization: Bearer {{token}}

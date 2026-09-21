@@ -26,4 +26,11 @@ class HealthControllerTests {
                 .andExpect(jsonPath("$.message").value("success"))
                 .andExpect(jsonPath("$.data").value("RS-01 backend is running"));
     }
+
+    @Test
+    void openApiDocumentIsPublic() throws Exception {
+        mockMvc.perform(get("/v3/api-docs"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.info.title").value("RS-01 API"));
+    }
 }

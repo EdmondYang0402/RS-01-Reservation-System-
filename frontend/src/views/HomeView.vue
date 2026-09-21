@@ -4,25 +4,31 @@ import heroImage from '../assets/images/hero-hotel.png'
 import SearchPanel from '../components/SearchPanel.vue'
 import SectionHeading from '../components/SectionHeading.vue'
 import RoomCard from '../components/RoomCard.vue'
-import { getRoomTypes } from '../services/hotel'
+import { getAvailability } from '../services/inventory'
+import { useSearchStore } from '../stores/search'
+import { useI18n } from 'vue-i18n'
 
 const rooms = ref([])
-onMounted(async () => { rooms.value = (await getRoomTypes()).data })
+const search = useSearchStore()
+const { t, tm } = useI18n()
+onMounted(async () => {
+  rooms.value = await getAvailability({ checkInDate: search.checkIn, checkOutDate: search.checkOut, guestCount: search.guests })
+})
 </script>
 
 <template>
   <section class="hero">
-    <img :src="heroImage" alt="栖月酒店庭院客房" />
+    <img :src="heroImage" :alt="t('home.heroAlt')" />
     <div class="hero-overlay"></div>
-    <div class="container hero-content"><span class="eyebrow">A QUIET STAY IN THE CITY</span><h1>留一晚给<br />温柔的月色</h1><p>日式留白与现代舒适相遇，回到旅途里安静的一隅。</p></div>
+    <div class="container hero-content"><span class="eyebrow">{{ t('home.heroEyebrow') }}</span><h1 class="pre-line">{{ t('home.heroTitle') }}</h1><p>{{ t('home.heroDescription') }}</p></div>
     <div class="container hero-search"><SearchPanel /></div>
   </section>
   <section class="section home-rooms">
     <div class="container">
-      <SectionHeading eyebrow="STAY WITH US" title="为每一种旅途，留一间好房" description="自然光、柔软织物与安静庭院，构成恰到好处的休息空间。" />
+      <SectionHeading :eyebrow="t('home.roomsEyebrow')" :title="t('home.roomsTitle')" :description="t('home.roomsDescription')" />
       <div class="room-grid"><RoomCard v-for="room in rooms" :key="room.id" :room="room" /></div>
-      <div class="section-action"><RouterLink class="text-link" to="/rooms">查看全部房型 →</RouterLink></div>
+      <div class="section-action"><RouterLink class="text-link" to="/rooms">{{ t('home.viewAllRooms') }}</RouterLink></div>
     </div>
   </section>
-  <section class="promise-section"><div class="container promise-grid"><div><span>01</span><h3>静谧选址</h3><p>远离喧闹，也不离城市便利。</p></div><div><span>02</span><h3>细致睡眠</h3><p>亲肤寝具与柔和照明伴你入眠。</p></div><div><span>03</span><h3>温暖早餐</h3><p>用当季食材开启从容早晨。</p></div></div></section>
+  <section class="promise-section"><div class="container promise-grid"><div v-for="(item, index) in tm('home.promises')" :key="item.title"><span>0{{ index + 1 }}</span><h3>{{ item.title }}</h3><p>{{ item.description }}</p></div></div></section>
 </template>

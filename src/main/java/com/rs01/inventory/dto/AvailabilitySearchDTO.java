@@ -2,8 +2,8 @@ package com.rs01.inventory.dto;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 import java.time.LocalDate;
 
@@ -16,6 +16,6 @@ public class AvailabilitySearchDTO {
     @Future
     private LocalDate checkOutDate;
     @NotNull
-    @Min(1)
+    @Positive
     private Integer guestCount;
 }

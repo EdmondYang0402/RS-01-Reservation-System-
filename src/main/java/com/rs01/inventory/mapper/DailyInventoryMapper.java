@@ -10,6 +10,26 @@ import java.util.List;
 @Mapper
 public interface DailyInventoryMapper {
 
+    @Update("""
+        UPDATE daily_inventory
+            SET reserved_count = reserved_count - 1
+            WHERE room_type_id = #{roomTypeId}
+            AND stay_date = #{stayDate}
+            AND reserved_count > 0
+""")
+    int releaseOne(Long roomTypeId, LocalDate stayDate);
+
+    @Update("""
+         UPDATE daily_inventory
+            SET reserved_count = reserved_count + 1
+            WHERE room_type_id = #{roomTypeId}
+            AND stay_date = #{stayDate}
+            AND total_inventory
+              - reserved_count
+              - out_of_service_count >= 1
+""")
+    int reserveOne(Long roomTypeId, LocalDate stayDate);
+
     @Select("""
             SELECT id,
                    room_type_id,
@@ -138,4 +158,10 @@ public interface DailyInventoryMapper {
             WHERE id = #{id}
             """)
     int update(DailyInventory inventory);
+
+    @Delete("""
+            DELETE FROM daily_inventory
+            WHERE id = #{id}
+            """)
+    int deleteById(Long id);
 }

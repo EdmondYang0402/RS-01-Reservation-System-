@@ -1,0 +1,27 @@
+@baseUrl = http://localhost:8080
+@token = paste-jwt-here
+
+### Register customer
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "username": "customer01",
+  "password": "change-me-123",
+  "name": "测试住客",
+  "email": "customer01@example.com",
+  "phone": "13800000000"
+}
+
+### Login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "customer01",
+  "password": "change-me-123"
+}
+
+### Example authenticated request
+GET {{baseUrl}}/reservations
+Authorization: Bearer {{token}}

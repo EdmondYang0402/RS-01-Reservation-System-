@@ -2,3 +2,7 @@ spring:
   config:
     activate:
       on-profile: dev
+
+logging:
+  level:
+    com.rs01: ${RS01_LOG_LEVEL:DEBUG}

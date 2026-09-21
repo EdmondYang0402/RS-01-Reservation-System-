@@ -1,0 +1,9 @@
+@baseUrl = http://localhost:8080
+@token = paste-jwt-here
+
+### Availability endpoint skeleton
+GET {{baseUrl}}/availability?hotelId=1&checkInDate=2026-09-20&checkOutDate=2026-09-22&guestCount=2
+
+### Admin daily inventory
+GET {{baseUrl}}/admin/inventory?roomTypeId=1&startDate=2026-09-20&endDate=2026-09-22
+Authorization: Bearer {{token}}
