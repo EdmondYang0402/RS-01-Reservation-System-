@@ -11,7 +11,7 @@ export const mapAvailableRoomType = (room, index = 0) => ({
   price: room.basePrice,
   remaining: room.availableRooms,
   image: room.image || roomImages[index % roomImages.length],
-  subtitle: room.subtitle || 'AVAILABLE STAY',
+  subtitle: room.subtitle,
   facilities: room.facilities || [],
 })
 

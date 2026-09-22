@@ -2,7 +2,7 @@ export default {
   language: { label: '语言', zhCN: '简体中文', jaJP: '日本語', enUS: 'English' },
   brand: { name: '栖月酒店', tagline: '在光与庭院之间，安心住一晚。', hours: '入住 15:00 · 退房 11:00' },
   nav: { toggle: '切换导航', home: '首页', rooms: '客房', availability: '查房', reservations: '我的预订', arrivals: '今日抵店', departures: '今日离店', roomStatus: '房态', dashboard: '概览', hotel: '酒店', roomTypes: '房型', inventory: '库存', roomTypesAdmin: '房型管理', roomsAdmin: '房间管理', inventoryAdmin: '库存查询', login: '登录', logout: '退出' },
-  common: { id: 'ID', name: '名称', description: '描述', status: '状态', actions: '操作', search: '查询', refresh: '刷新', add: '新增', edit: '编辑', save: '保存', submit: '提交', cancel: '取消', confirm: '确认', details: '查看详情', date: '日期', price: '价格', requestSubmitted: '请求已提交', requestFailed: '请求失败', unassigned: '未分配', all: '全部' },
+  common: { id: 'ID', name: '名称', description: '描述', status: '状态', actions: '操作', search: '查询', refresh: '刷新', add: '新增', edit: '编辑', save: '保存', submit: '提交', cancel: '取消', confirm: '确认', details: '查看详情', date: '日期', price: '价格', requestSubmitted: '请求已提交', requestFailed: '请求失败', unauthorized: '登录已失效，请重新登录', forbidden: '无权执行此操作', unassigned: '未分配', all: '全部' },
   home: {
     heroAlt: '栖月酒店庭院客房', heroEyebrow: '城市中的静谧居所', heroTitle: '留一晚给\n温柔的月色', heroDescription: '日式留白与现代舒适相遇，回到旅途里安静的一隅。',
     roomsEyebrow: '入住栖月', roomsTitle: '为每一种旅途，留一间好房', roomsDescription: '自然光、柔软织物与安静庭院，构成恰到好处的休息空间。', viewAllRooms: '查看全部房型 →',
@@ -17,6 +17,7 @@ export default {
     status: { AVAILABLE: '可用', OCCUPIED: '已入住', OUT_OF_SERVICE: '停用' },
   },
   reservation: {
+    eyebrow: '我的住宿',
     reservation: '预订', my: '我的预订', myDescription: '查看你的入住计划与历史旅程。', reservationNo: '预订编号', number: '预订号', guest: '住客', checkIn: '入住', checkOut: '退房', checkInDate: '入住日期', checkOutDate: '退房日期', totalAmount: '订单总额', cancel: '取消预订', cancelTitle: '取消预订', cancelConfirm: '确认取消预订 {no}？', cancelled: '预订已取消', detail: '预订详情', phone: '联系电话', assignedRoom: '房号', nightlyDetails: '每晚明细',
     status: { CONFIRMED: '已确认', CHECKED_IN: '已入住', CHECKED_OUT: '已退房', CANCELLED: '已取消', NO_SHOW: '未到店', COMPLETED: '已完成' },
   },

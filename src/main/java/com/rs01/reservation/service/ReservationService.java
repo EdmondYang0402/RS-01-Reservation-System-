@@ -47,10 +47,13 @@ public class ReservationService {
 
     public ReservationDetailVO getReservationDetail(Long reservationId, Long userId) {
         log.debug("Loading reservation detail: reservationId={}, userId={}", reservationId, userId);
+
         Reservation reservation = reservationMapper.selectById(reservationId);
+
         if (reservation == null || !userId.equals(reservation.getUserId())) {
             throw new BusinessException("Reservation not found");
         }
+
         ReservationDetailVO detail = reservationMapper.selectDetailById(reservationId);
         detail.setNights(reservationNightMapper.selectByReservationId(reservationId));
         return detail;
@@ -279,14 +282,63 @@ public class ReservationService {
         }
     }
 
+    @Transactional
     public void checkOut(Long reservationId) {
-        // TODO: core business logic should be implemented manually by developer
-        throw unsupported();
+
+        Reservation reservation = reservationMapper.selectById(reservationId);
+
+        if (reservation == null) {
+            throw new BusinessException("预约不存在");
+        }
+
+        if (reservation.getStatus() != ReservationStatus.CHECKED_IN) {
+            throw new BusinessException("当前预约状态不允许办理退房");
+        }
+
+        Long roomId = reservation.getAssignedRoomId();
+
+        if (roomId == null) {
+            throw new BusinessException("当前预约没有已分配的房间");
+        }
+
+        // Reservation: CHECKED_IN -> CHECKED_OUT
+        int reservationRows = reservationMapper.checkOutReservation(
+                reservationId,
+                roomId
+        );
+
+        if (reservationRows != 1) {
+            throw new BusinessException("预约状态已发生变化，退房失败");
+        }
+
+        // Room: OCCUPIED -> AVAILABLE
+        int roomRows = roomMapper.releaseRoom(roomId);
+
+        if (roomRows != 1) {
+            throw new BusinessException("房间状态异常，退房失败");
+        }
     }
 
     public void markNoShow(Long reservationId) {
-        // TODO: core business logic should be implemented manually by developer
-        throw unsupported();
+        Reservation reservation = reservationMapper.selectById(reservationId);
+
+        if (reservation == null) {
+            throw new BusinessException("预约不存在");
+        }
+
+        if (reservation.getStatus() != ReservationStatus.CONFIRMED) {
+            throw new BusinessException("当前预约状态不允许标记为未到店");
+        }
+
+        if (LocalDate.now().isBefore(reservation.getCheckInDate())) {
+            throw new BusinessException("尚未到入住日期，不能标记为未到店");
+        }
+
+        int rows = reservationMapper.markNoShow(reservationId);
+
+        if (rows != 1) {
+            throw new BusinessException("预约状态已发生变化");
+        }
     }
 
     private String generateReservationNo() {

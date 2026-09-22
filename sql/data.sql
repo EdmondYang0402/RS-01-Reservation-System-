@@ -1,5 +1,15 @@
 USE rs01;
 
+-- Development-only accounts. Passwords are BCrypt hashes; see docs/manual-test.md for local credentials.
+INSERT INTO `user` (id, username, password, name, email, phone, role, status)
+VALUES
+    (1, 'customer', '$2a$10$ZU8cUUFJXEi7Bj7jvl0iCeh67WDH8A9Zhy4QeXF6sRyPMtBdLaS2m', 'Sakura Customer', 'customer@example.com', '13800000001', 'CUSTOMER', 1),
+    (2, 'frontdesk', '$2a$10$7ThQQ5JHUL0Rq9SM2OTX/OWtoDj1O/e0XO6TZEck9/dnyGTB7RFe2', 'Sakura Front Desk', 'frontdesk@example.com', '13800000002', 'FRONT_DESK', 1),
+    (3, 'admin', '$2a$10$UgjedYoDLSksLMIKPoaBpOkqAX0kCOSfLg3nKOq6XsqiSsZ6d7Cdq', 'Sakura Admin', 'admin@example.com', '13800000003', 'ADMIN', 1)
+ON DUPLICATE KEY UPDATE
+    password = VALUES(password), name = VALUES(name), email = VALUES(email),
+    phone = VALUES(phone), role = VALUES(role), status = VALUES(status);
+
 INSERT INTO hotel (id, name, address, phone, check_in_time, check_out_time, status)
 VALUES (1, 'Sakura Inn', '1 Sakura Road', '000-0000-0000', '14:00:00', '12:00:00', 1)
 ON DUPLICATE KEY UPDATE name = VALUES(name);

@@ -1,5 +1,9 @@
 import { apiRequest } from './request'
+import { getAvailability } from './inventory'
 
-export const getRoomTypes = (params) => apiRequest({ url: '/room-types', method: 'get', params })
-export const getRoomType = (id, params) => apiRequest({ url: `/room-types/${id}`, method: 'get', params })
+export const getRoomTypes = (params) => getAvailability(params)
+export const getRoomType = async (id, params) => {
+  const roomTypes = await getAvailability(params)
+  return roomTypes.find((roomType) => roomType.roomTypeId === Number(id)) || null
+}
 export const getRoomStatus = (params) => apiRequest({ url: '/front-desk/rooms', method: 'get', params })

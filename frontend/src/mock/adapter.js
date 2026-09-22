@@ -1,4 +1,5 @@
 import { adminRooms, adminRoomTypes, arrivals, dailyInventory, departures, reservations, roomTypes, staffRooms } from './data'
+import i18n from '../i18n'
 
 const wait = (data) => new Promise((resolve) => setTimeout(() => resolve({ data }), 220))
 
@@ -57,7 +58,7 @@ export const mockAdapter = ({ url, method = 'get', data }) => {
   const match = url.match(/^\/room-types\/(\d+)$/)
   if (match) {
     const room = roomTypes.find((item) => item.id === Number(match[1]))
-    return room && requestMethod === 'get' ? wait(room) : Promise.reject(new Error('房型不存在'))
+    return room && requestMethod === 'get' ? wait(room) : Promise.reject(new Error(i18n.global.t('room.unavailable')))
   }
-  return Promise.reject(new Error(`未匹配的 Mock 请求：${url}`))
+  return Promise.reject(new Error(`${i18n.global.t('common.requestFailed')}: ${url}`))
 }

@@ -2,7 +2,7 @@ export default {
   language: { label: '言語', zhCN: '简体中文', jaJP: '日本語', enUS: 'English' },
   brand: { name: '月見ホテル', tagline: '光と庭に包まれて、心安らぐひとときを。', hours: 'チェックイン 15:00 · チェックアウト 11:00' },
   nav: { toggle: 'ナビゲーションを切り替える', home: 'ホーム', rooms: '客室', availability: '空室検索', reservations: '予約一覧', arrivals: '本日のチェックイン', departures: '本日のチェックアウト', roomStatus: '客室状況', dashboard: '概要', hotel: 'ホテル', roomTypes: '客室タイプ', inventory: '在庫', roomTypesAdmin: '客室タイプ管理', roomsAdmin: '客室管理', inventoryAdmin: '在庫管理', login: 'ログイン', logout: 'ログアウト' },
-  common: { id: 'ID', name: '名称', description: '説明', status: 'ステータス', actions: '操作', search: '検索', refresh: '更新', add: '追加', edit: '編集', save: '保存', submit: '送信', cancel: 'キャンセル', confirm: '確認', details: '詳細を見る', date: '日付', price: '料金', requestSubmitted: 'リクエストを送信しました', requestFailed: 'リクエストに失敗しました', unassigned: '未割り当て', all: 'すべて' },
+  common: { id: 'ID', name: '名称', description: '説明', status: 'ステータス', actions: '操作', search: '検索', refresh: '更新', add: '追加', edit: '編集', save: '保存', submit: '送信', cancel: 'キャンセル', confirm: '確認', details: '詳細を見る', date: '日付', price: '料金', requestSubmitted: 'リクエストを送信しました', requestFailed: 'リクエストに失敗しました', unauthorized: '再度ログインしてください', forbidden: 'この操作を行う権限がありません', unassigned: '未割り当て', all: 'すべて' },
   home: {
     heroAlt: '月見ホテルの中庭に面した客室', heroEyebrow: '街の中の静かな滞在', heroTitle: 'やさしい月明かりと\n過ごす一夜', heroDescription: '和の余白と現代の快適さが調和する、旅の静かな居場所です。',
     roomsEyebrow: '月見でのご滞在', roomsTitle: '旅のかたちに寄り添う客室', roomsDescription: '自然光、やわらかなファブリック、静かな庭が心地よい休息をつくります。', viewAllRooms: 'すべての客室を見る →',
@@ -17,6 +17,7 @@ export default {
     status: { AVAILABLE: '空室', OCCUPIED: '利用中', OUT_OF_SERVICE: '利用停止' },
   },
   reservation: {
+    eyebrow: 'ご宿泊',
     reservation: '予約', my: '予約一覧', myDescription: '今後の宿泊予定と過去のご利用を確認できます。', reservationNo: '予約番号', number: '予約番号', guest: '宿泊者', checkIn: 'チェックイン', checkOut: 'チェックアウト', checkInDate: 'チェックイン日', checkOutDate: 'チェックアウト日', totalAmount: '合計金額', cancel: '予約をキャンセル', cancelTitle: '予約のキャンセル', cancelConfirm: '予約 {no} をキャンセルしますか？', cancelled: '予約をキャンセルしました', detail: '予約詳細', phone: '電話番号', assignedRoom: '客室番号', nightlyDetails: '宿泊日ごとの明細',
     status: { CONFIRMED: '予約確定', CHECKED_IN: 'チェックイン済み', CHECKED_OUT: 'チェックアウト済み', CANCELLED: 'キャンセル済み', NO_SHOW: '無断不泊', COMPLETED: '完了' },
   },

@@ -2,7 +2,7 @@ export default {
   language: { label: 'Language', zhCN: '简体中文', jaJP: '日本語', enUS: 'English' },
   brand: { name: 'Tsukimi Stay', tagline: 'A peaceful night between light and garden.', hours: 'Check-in 3:00 PM · Check-out 11:00 AM' },
   nav: { toggle: 'Toggle navigation', home: 'Home', rooms: 'Rooms', availability: 'Availability', reservations: 'My Reservations', arrivals: 'Today Arrivals', departures: 'Today Departures', roomStatus: 'Room Status', dashboard: 'Dashboard', hotel: 'Hotel', roomTypes: 'Room Types', inventory: 'Inventory', roomTypesAdmin: 'Room Types', roomsAdmin: 'Rooms Admin', inventoryAdmin: 'Inventory', login: 'Login', logout: 'Logout' },
-  common: { id: 'ID', name: 'Name', description: 'Description', status: 'Status', actions: 'Actions', search: 'Search', refresh: 'Refresh', add: 'Add', edit: 'Edit', save: 'Save', submit: 'Submit', cancel: 'Cancel', confirm: 'Confirm', details: 'View Details', date: 'Date', price: 'Price', requestSubmitted: 'Request submitted', requestFailed: 'Request failed', unassigned: 'Unassigned', all: 'All' },
+  common: { id: 'ID', name: 'Name', description: 'Description', status: 'Status', actions: 'Actions', search: 'Search', refresh: 'Refresh', add: 'Add', edit: 'Edit', save: 'Save', submit: 'Submit', cancel: 'Cancel', confirm: 'Confirm', details: 'View Details', date: 'Date', price: 'Price', requestSubmitted: 'Request submitted', requestFailed: 'Request failed', unauthorized: 'Please log in again', forbidden: 'You do not have permission for this action', unassigned: 'Unassigned', all: 'All' },
   home: {
     heroAlt: 'Courtyard room at Tsukimi Stay', heroEyebrow: 'A quiet stay in the city', heroTitle: 'A gentle night\nunder the moon', heroDescription: 'Japanese simplicity meets modern comfort in a quiet corner of your journey.',
     roomsEyebrow: 'Stay with us', roomsTitle: 'A welcoming room for every journey', roomsDescription: 'Natural light, soft textiles and a quiet garden create just the right place to rest.', viewAllRooms: 'View all rooms →',
@@ -17,6 +17,7 @@ export default {
     status: { AVAILABLE: 'Available', OCCUPIED: 'Occupied', OUT_OF_SERVICE: 'Out of Service' },
   },
   reservation: {
+    eyebrow: 'My Stays',
     reservation: 'Reservation', my: 'My Reservations', myDescription: 'View your upcoming stays and past journeys.', reservationNo: 'Reservation No.', number: 'Reservation No.', guest: 'Guest', checkIn: 'Check In', checkOut: 'Check Out', checkInDate: 'Check-in Date', checkOutDate: 'Check-out Date', totalAmount: 'Total Amount', cancel: 'Cancel Reservation', cancelTitle: 'Cancel Reservation', cancelConfirm: 'Cancel reservation {no}?', cancelled: 'Reservation cancelled', detail: 'Reservation Details', phone: 'Phone', assignedRoom: 'Room Number', nightlyDetails: 'Nightly Details',
     status: { CONFIRMED: 'Confirmed', CHECKED_IN: 'Checked In', CHECKED_OUT: 'Checked Out', CANCELLED: 'Cancelled', NO_SHOW: 'No Show', COMPLETED: 'Completed' },
   },

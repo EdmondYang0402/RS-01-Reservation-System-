@@ -5,6 +5,7 @@ import com.rs01.auth.dto.RegisterDTO;
 import com.rs01.auth.vo.LoginVO;
 import com.rs01.common.result.Result;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 @Tag(name = "Authentication")
+@SecurityRequirements
 public class AuthController {
     private final AuthService authService;
 

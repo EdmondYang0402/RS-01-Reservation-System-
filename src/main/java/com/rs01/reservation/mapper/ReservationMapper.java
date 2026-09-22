@@ -29,6 +29,30 @@ public interface ReservationMapper {
             @Param("roomId") Long roomId
     );
 
+    @Update("""
+        UPDATE reservation
+        SET status = 'CHECKED_OUT',
+            actual_check_out_time = CURRENT_TIMESTAMP,
+            update_time = CURRENT_TIMESTAMP
+        WHERE id = #{reservationId}
+          AND status = 'CHECKED_IN'
+          AND assigned_room_id = #{roomId}
+        """)
+    int checkOutReservation(
+            @Param("reservationId") Long reservationId,
+            @Param("roomId") Long roomId
+    );
+
+    @Update("""
+        UPDATE reservation
+        SET status = 'NO_SHOW',
+            update_time = CURRENT_TIMESTAMP
+        WHERE id = #{reservationId}
+          AND status = 'CONFIRMED'
+        """)
+    int markNoShow(@Param("reservationId") Long reservationId);
+
+
     @Insert("""
             INSERT INTO reservation (
                 reservation_no, user_id, hotel_id, room_type_id, assigned_room_id,

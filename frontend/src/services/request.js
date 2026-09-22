@@ -7,7 +7,8 @@ const request = axios.create({ baseURL: import.meta.env.VITE_API_BASE_URL || '/a
 
 request.interceptors.request.use((config) => {
   const token = localStorage.getItem('rs01_token')
-  if (token) config.headers.Authorization = `Bearer ${token}`
+  const isAuthRequest = config.url?.startsWith('/auth/')
+  if (token && !isAuthRequest) config.headers.Authorization = `Bearer ${token}`
   return config
 })
 
@@ -20,7 +21,14 @@ const clearSession = () => {
 
 const showError = (error) => {
   if (error.__shown) return error
-  const message = error.response?.data?.message || error.message || i18n.global.t('common.requestFailed')
+  const statusMessages = {
+    401: i18n.global.t('common.unauthorized'),
+    403: i18n.global.t('common.forbidden'),
+  }
+  const message = statusMessages[error.response?.status]
+    || error.response?.data?.message
+    || error.message
+    || i18n.global.t('common.requestFailed')
   ElMessage.error(message)
   error.__shown = true
   return error
@@ -41,7 +49,8 @@ const unwrapResult = (body) => {
 request.interceptors.response.use(
   (response) => unwrapResult(response.data),
   (error) => {
-    if (error.response?.status === 401) clearSession()
+    const isAuthRequest = error.config?.url?.startsWith('/auth/')
+    if (error.response?.status === 401 && !isAuthRequest) clearSession()
     return Promise.reject(showError(error))
   },
 )

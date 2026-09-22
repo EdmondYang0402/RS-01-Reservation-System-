@@ -29,6 +29,7 @@ services:
       DB_PASSWORD: ${DB_PASSWORD:-rs01-dev-password}
       JWT_SECRET: ${JWT_SECRET:-compose-dev-only-change-this-jwt-secret-2026}
       JWT_EXPIRATION_MILLIS: ${JWT_EXPIRATION_MILLIS:-86400000}
+      CORS_ALLOWED_ORIGIN_PATTERNS: ${CORS_ALLOWED_ORIGIN_PATTERNS:-http://localhost:*,http://127.0.0.1:*}
     ports:
       - "${APP_PORT:-8080}:8080"
     depends_on:

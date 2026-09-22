@@ -20,6 +20,15 @@ public interface RoomMapper {
 
     List<Room> selectAvailableByRoomTypeId(Long roomTypeId);
 
+    @Update("""
+        UPDATE room
+        SET status = 'AVAILABLE',
+            update_time = CURRENT_TIMESTAMP
+        WHERE id = #{roomId}
+          AND status = 'OCCUPIED'
+        """)
+    int releaseRoom(@Param("roomId") Long roomId);
+
 
     @Insert("""
             INSERT INTO room (
